@@ -17,6 +17,7 @@ namespace NBU_USD
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(d.ListOfDollars[x]);
             Console.ResetColor();
+            Console.ReadKey();
         }
     }
 }

@@ -8,6 +8,7 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Data;
 
 namespace NBU_USD
 {
@@ -130,14 +131,28 @@ namespace NBU_USD
             string tempRequiredSum = Console.ReadLine();
             RequiredSum = Convert.ToDouble(tempRequiredSum, System.Globalization.CultureInfo.InvariantCulture);
             double currentRate = ListOfDollars[0].Rate;
-            List<double> temp = new List<double>();
-            
-            for (int i = 0; i < ListOfDollars.Count;i++)
+
+            double temp = 100000000;
+            int index = 0;
+
+            //Console.WriteLine(Convert.ToString(currentRate));
+            //Console.WriteLine(Convert.ToString(CurrentSum));
+            //Console.WriteLine(Convert.ToString(RequiredSum));
+
+
+
+
+            for (int i = 0; i < ListOfDollars.Count; i++)
             {
-                temp.Add(RequiredSum - (CurrentSum / currentRate * ListOfDollars[i].Rate));
+                //Console.WriteLine(Convert.ToDouble(RequiredSum - (CurrentSum / currentRate * ListOfDollars[i].Rate)) + " --- " + ListOfDollars[i].Exchangedate);
+                if (RequiredSum - (CurrentSum / currentRate * ListOfDollars[i].Rate) < temp && RequiredSum - (CurrentSum / currentRate * ListOfDollars[i].Rate) >= 0)
+                {
+                    temp = RequiredSum - (CurrentSum / currentRate * ListOfDollars[i].Rate);
+                    index = i;
+                }
             }
-          
-            return temp.IndexOf(temp.Min());
+
+            return index;
         }
     }
 }
